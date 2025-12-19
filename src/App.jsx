@@ -320,7 +320,7 @@ function MemorySection({ reduceMotion }) {
 
   const memories = [
     { img: "/memories/m1.jpeg", cap: "A moment I replay in my head." },
-    { img: "/memories/m2.jpeg", cap: "The kind of happy that feels calm." },
+    { img: "/memories/m5.jpeg", cap: "The kind of happy that feels calm." },
     { img: "/memories/m3.jpeg", cap: "One of my favorite versions of you." },
     { img: "/memories/m4.jpeg", cap: "Sexy as always🥰." },
   ];
