@@ -1,0 +1,923 @@
+:root {
+    --bg: #05060a;
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.68);
+    --muted2: rgba(255, 255, 255, 0.55);
+    --card: rgba(255, 255, 255, 0.06);
+    --card2: rgba(255, 255, 255, 0.08);
+    --stroke: rgba(255, 255, 255, 0.10);
+    --shadow: 0 14px 50px rgba(0, 0, 0, 0.45);
+    --radius: 22px;
+    --max: 1120px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    background: var(--bg);
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 330vh;
+    position: relative;
+}
+
+.bg {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: translateZ(0);
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(60% 55% at 50% 35%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.92));
+}
+
+.topBar {
+    position: fixed;
+    top: 14px;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+}
+
+.brandMark {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.brandText {
+    font-weight: 650;
+    letter-spacing: 0.2px;
+    opacity: 0.92;
+}
+
+.progressPill {
+    min-width: 168px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.progressTrack {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.10);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg,
+            rgba(120, 170, 255, 0.9),
+            rgba(255, 120, 185, 0.9),
+            rgba(255, 205, 120, 0.9));
+}
+
+.progressText {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted2);
+}
+
+.progressPct {
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 650;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: min(var(--max), calc(100% - 34px));
+    margin: 0 auto;
+    padding-top: 96px;
+}
+
+.hero {
+    min-height: 110vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px 0 0;
+}
+
+.heroTitle {
+    font-size: clamp(42px, 5.4vw, 78px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+    text-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+}
+
+.heroSub {
+    margin: 0 0 26px;
+    font-size: clamp(15px, 1.65vw, 20px);
+    color: var(--muted);
+    max-width: 58ch;
+}
+
+.scrollHint {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    user-select: none;
+}
+
+.mouse {
+    width: 26px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.mouse::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    width: 4px;
+    height: 8px;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.55);
+    animation: wheel 1.2s ease-in-out infinite;
+}
+
+@keyframes wheel {
+    0% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.65;
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(9px);
+        opacity: 0.25;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.65;
+    }
+}
+
+/* =========================
+   STAGE (CINEMATIC REDESIGN)
+   ========================= */
+
+.stage {
+    min-height: 140vh;
+    margin-top: 10vh;
+    position: relative;
+    padding: 34px 0 20vh;
+}
+
+/* ✅ tuned layout */
+.stageRedesign {
+    position: relative;
+    padding: 64px 0 22vh;
+    margin-top: 10vh;
+}
+
+/* whisper line makes space intentional */
+.stageWhisper {
+    text-align: center;
+    font-size: 0.95rem;
+    opacity: 0.74;
+    margin: 0 0 26px;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+/* new grid matches your max width + spacing */
+.stageGridNew {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    width: min(var(--max), calc(100% - 6px));
+    margin: 0 auto;
+    align-items: start;
+}
+
+.stageGridNew .stageBottom {
+    grid-column: 1 / -1;
+}
+
+/* connector grows with scroll and visually “fills” the middle */
+.stageConnector {
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    transform-origin: top;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom,
+            rgba(255, 160, 190, 0.38),
+            rgba(186, 120, 255, 0.24),
+            rgba(0, 0, 0, 0));
+    filter: blur(0.35px);
+    pointer-events: none;
+}
+
+/* outer shell for each card: makes section feel designed */
+.stageCard {
+    position: relative;
+    padding: 14px;
+    border-radius: calc(var(--radius) + 2px);
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.035));
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.40);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+/* subtle glow to avoid “empty” feel */
+.stageCard::before {
+    content: "";
+    position: absolute;
+    inset: -60%;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 120, 185, 0.10),
+            rgba(120, 170, 255, 0.08),
+            rgba(0, 0, 0, 0));
+    filter: blur(18px);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+/* keep label on top */
+.stageCard .label {
+    position: relative;
+    z-index: 2;
+}
+
+/* inner content uses your existing lineStack look */
+.stageCard .lineStack {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: none;
+}
+
+/* orbs */
+.orbsWrap {
+    position: sticky;
+    top: 20vh;
+    height: 52vh;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    margin-bottom: 24px;
+}
+
+.orb {
+    position: absolute;
+    width: clamp(120px, 14vw, 210px);
+    height: clamp(120px, 14vw, 210px);
+    border-radius: 999px;
+    filter: blur(0px);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.orbLeft {
+    background: radial-gradient(circle at 30% 30%, rgba(120, 170, 255, 0.95), rgba(120, 170, 255, 0.18), rgba(0, 0, 0, 0));
+}
+
+.orbRight {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 120, 185, 0.95), rgba(255, 120, 185, 0.18), rgba(0, 0, 0, 0));
+}
+
+.orbBridge {
+    position: absolute;
+    width: clamp(180px, 22vw, 360px);
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(120, 170, 255, 0.65), rgba(255, 120, 185, 0.65), rgba(255, 205, 120, 0.55));
+    filter: blur(0.2px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.38);
+}
+
+/* Old stageGrid kept for any leftover usage */
+.stageGrid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-areas:
+        "left right"
+        "bottom bottom";
+}
+
+.stageLeft {
+    grid-area: left;
+}
+
+.stageRight {
+    grid-area: right;
+}
+
+.stageBottom {
+    grid-area: bottom;
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 12px;
+    letter-spacing: 0.18px;
+    margin-bottom: 12px;
+}
+
+.line,
+.heroTitle,
+.heroSub,
+.finaleText {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.lineStack {
+    padding: 18px 18px 18px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+}
+
+.line {
+    margin: 0;
+    font-size: clamp(15px, 1.75vw, 18px);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.line+.line {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+/* =========================
+   FINALE
+   ========================= */
+
+.finale {
+    min-height: 120vh;
+    display: grid;
+    place-items: center;
+    padding: 24vh 0 18vh;
+    position: relative;
+}
+
+.finaleCard {
+    width: min(720px, calc(100% - 10px));
+    padding: 22px 22px 18px;
+    border-radius: calc(var(--radius) + 2px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(12px);
+}
+
+.finaleTop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.seal {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.finaleTitle {
+    font-weight: 720;
+    letter-spacing: 0.2px;
+}
+
+.finaleText {
+    margin: 12px 0 18px;
+    font-size: clamp(15px, 1.7vw, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finaleRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.finaleBtn {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.92);
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.finaleBtn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.finaleBtn:active {
+    transform: translateY(0px) scale(0.99);
+}
+
+.finaleNote {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+}
+
+.secretBox {
+    margin-top: 14px;
+    padding: 14px 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: max-height 420ms ease, opacity 420ms ease, transform 420ms ease;
+}
+
+.secretBox.reveal {
+    max-height: 220px;
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.secretGlow {
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 40% 40%, rgba(255, 205, 120, 0.16), rgba(255, 120, 185, 0.10), rgba(120, 170, 255, 0.10), rgba(0, 0, 0, 0));
+    filter: blur(18px);
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+.secretText {
+    position: relative;
+    margin: 0;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.footer {
+    padding: 44px 0 60px;
+    text-align: center;
+}
+
+.footerText {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 12px;
+}
+
+/* =========================
+   PARTICLES
+   ========================= */
+
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    animation-name: drift;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    filter: blur(0.3px);
+}
+
+@keyframes drift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(14px, -18px) scale(1.12);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 860px) {
+    .stageGrid {
+        grid-template-columns: 1fr;
+        grid-template-areas: "left" "right" "bottom";
+    }
+
+    .stageGridNew {
+        grid-template-columns: 1fr;
+    }
+
+    .topBar {
+        padding: 0 12px;
+    }
+
+    .progressPill {
+        min-width: 152px;
+    }
+
+    .stageConnector {
+        left: 14px;
+        transform: none;
+    }
+
+    /* mobile: connector becomes left rail */
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Top right cluster */
+.topRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =========================
+   POLAROID MEMORIES
+   ========================= */
+
+.polaroid {
+    margin: 0;
+    padding: 12px 12px 10px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.polaroidImgWrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(0, 0, 0, 0.22);
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    position: relative;
+}
+
+.polaroidImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transform: scale(1.01);
+}
+
+.polaroidGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: min(860px, calc(100% - 8px));
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* =========================
+   SOFT MODE
+   ========================= */
+
+.softMode .bg {
+    filter: saturate(1.12) contrast(1.03);
+}
+
+.softMode .lineStack,
+.softMode .finaleCard,
+.softMode .polaroid,
+.softMode .stageCard {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.softMode .orbBridge {
+    filter: blur(0.4px);
+    opacity: 1;
+}
+
+.softMode .particle {
+    opacity: 0.16 !important;
+}
+
+/* =========================
+   SPARKLE BURST
+   ========================= */
+
+.sparkleRoot {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, rgba(255, 255, 255, 0.4));
+    animation: sparkle 1.4s ease-out forwards;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(-40px) scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* (Optional) if you already have confetti styles elsewhere, keep them.
+   If you don't, add your confetti CSS in your project. */
+
+
+
+/* 🔐 Passcode unlock */
+.unlockWrap {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    margin-top: 22px;
+}
+
+.unlockCard {
+    width: min(720px, calc(100% - 10px));
+    padding: 18px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(12px);
+}
+
+.unlockTop {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.unlockIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.unlockTitle {
+    font-weight: 750;
+    letter-spacing: 0.2px;
+}
+
+.unlockHint {
+    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 12px;
+}
+
+.unlockRow {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.unlockInput {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.22);
+    color: rgba(255, 255, 255, 0.92);
+    outline: none;
+}
+
+.unlockInput::placeholder {
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.unlockBtn {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.92);
+    padding: 11px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    white-space: nowrap;
+}
+
+.unlockBtn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.unlockBtn:active {
+    transform: translateY(0px) scale(0.99);
+}
+
+.unlockBtn.ghost {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.unlockNote {
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.4;
+}
+
+.unlockReveal {
+    position: relative;
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+}
+
+.unlockGlow {
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 40% 40%, rgba(255, 205, 120, 0.16), rgba(255, 120, 185, 0.10), rgba(120, 170, 255, 0.10), rgba(0, 0, 0, 0));
+    filter: blur(18px);
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+.unlockMsg {
+    position: relative;
+    margin: 0;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.unlockActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+@keyframes shakeX {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-6px);
+    }
+
+    40% {
+        transform: translateX(6px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+.shake {
+    animation: shakeX 420ms ease;
+}
+
+@media (max-width: 520px) {
+    .unlockRow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .unlockBtn {
+        width: 100%;
+        text-align: center;
+    }
+}
